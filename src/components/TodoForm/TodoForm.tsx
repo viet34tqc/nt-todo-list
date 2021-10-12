@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { API_URL } from '../../config/config';
 import { useTodos } from '../../context/TodoContext';
+import './TodoForm.styles.scss';
 
 const errorMessage = {
 	isEmpty: 'Please enter your todo item',
@@ -61,7 +62,7 @@ const TodoForm = () => {
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit}>
+		<form id="form-todo" onSubmit={handleFormSubmit}>
 			<div>
 				<input
 					type="text"

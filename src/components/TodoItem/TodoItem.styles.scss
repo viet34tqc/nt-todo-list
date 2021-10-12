@@ -1,0 +1,23 @@
+.todo-item {
+	list-style-type: none;
+	display: flex;
+	align-items: center;
+
+	& + & {
+		margin-top: 8px;
+		padding-top: 8px;
+		border-top: 1px solid #f1f1f1;
+	}
+
+	&.is-completed .todo-item__name {
+		text-decoration: line-through;
+	}
+}
+
+.todo-item__delete {
+	margin-left: auto;
+	background: red;
+	color: #fff;
+	border: 1px solid red;
+	padding: 6px 12px;
+}

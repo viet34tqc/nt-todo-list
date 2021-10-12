@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { API_URL } from '../../config/config';
 import { useTodos } from '../../context/TodoContext';
 import { Todo } from '../../models/todo';
+import './TodoItem.styles.scss';
 
 interface TodoItemProps {
 	todo: Todo;
 }
 
-const TodoItem = ({ todo }: TodoItemProps) => {
-	const { id, name, completed } = todo;
+const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 	const { setTodos } = useTodos();
+	const [deleteLoading, setDeleteLoading] = useState(false);
+
+	// Handle delete todo
 	const handleDelete = async () => {
+		setDeleteLoading(true);
 		await fetch(`${API_URL}${id}`, {
 			method: 'DELETE',
 		})
@@ -19,11 +23,15 @@ const TodoItem = ({ todo }: TodoItemProps) => {
 					throw Error(res.statusText);
 				}
 				setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
+				setDeleteLoading(false);
 			})
 			.catch((error) => {
 				console.log(error.message);
+				setDeleteLoading(false);
 			});
 	};
+
+	// Handle toggle todo
 	const handleToggleStatus = async () => {
 		await fetch(`${API_URL}${id}`, {
 			method: 'PUT',
@@ -55,14 +63,20 @@ const TodoItem = ({ todo }: TodoItemProps) => {
 			});
 	};
 	return (
-		<li className={completed ? 'is-completed' : ''}>
+		<li className={`todo-item ${completed ? 'is-completed' : ''}`}>
 			<input
 				type="checkbox"
 				defaultChecked={completed}
 				onChange={handleToggleStatus}
 			/>
-			{name}
-			<button onClick={handleDelete}>Delete</button>
+			<span className="todo-item__name">{name}</span>
+			<button
+				className="todo-item__delete"
+				disabled={deleteLoading}
+				onClick={handleDelete}
+			>
+				Delete
+			</button>
 		</li>
 	);
 };
