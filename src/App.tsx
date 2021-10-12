@@ -1,30 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TodoForm from './components/TodoForm/TodoForm';
 import TodoList from './components/TodoList/TodoList';
+import { API_URL } from './config/config';
+import { useTodos } from './context/TodoContext';
 import { Todo } from './models/todo';
 
 function App() {
-	const [todos, setTodos] = useState<Todo[]>([]);
+	const { setTodos } = useTodos();
+	const [error, setError] = useState('');
 
 	// Call API to get Todos
 	useEffect(() => {
 		(async function () {
-			try {
-				const res = await fetch(process.env.REACT_APP_API_URL || '');
-				const todos: Todo[] = await res.json();
-				setTodos(() => todos);
-			} catch (error) {
-				console.log(error);
-			}
+			await fetch(API_URL)
+				.then(async (res) => {
+					const todos: Todo[] = await res.json();
+					setTodos(() => todos);
+				})
+				.catch((error) => {
+					setError(error.message);
+				});
 		})();
-	}, []);
+	}, [setTodos]);
 
 	return (
 		<main>
 			<h1>Your todo list</h1>
-
-			<TodoForm setTodos={setTodos} />
-			<TodoList todos={todos} />
+			{!error && (
+				<>
+					<TodoForm />
+					<TodoList />
+				</>
+			)}
 		</main>
 	);
 }

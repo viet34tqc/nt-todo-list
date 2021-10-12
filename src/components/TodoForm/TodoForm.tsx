@@ -1,22 +1,14 @@
-import React, {
-	ChangeEvent,
-	Dispatch,
-	FormEvent,
-	SetStateAction,
-	useState,
-} from 'react';
-import { Todo } from '../../models/todo';
-
-interface TodoFormProps {
-	setTodos: Dispatch<SetStateAction<Todo[]>>;
-}
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { API_URL } from '../../config/config';
+import { useTodos } from '../../context/TodoContext';
 
 const errorMessage = {
 	isEmpty: 'Please enter your todo item',
 	isInvalidEmail: 'Please enter valid email address',
 };
 
-const TodoForm = ({ setTodos }: TodoFormProps) => {
+const TodoForm = () => {
+	const { setTodos } = useTodos();
 	const [value, setValue] = useState('');
 	const [error, setError] = useState({
 		isEmpty: false,
@@ -45,7 +37,7 @@ const TodoForm = ({ setTodos }: TodoFormProps) => {
 	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		// Call API
-		await fetch('https://6165136909a29d0017c88f35.mockapi.io/tod', {
+		await fetch(API_URL, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

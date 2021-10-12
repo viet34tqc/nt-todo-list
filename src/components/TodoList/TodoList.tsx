@@ -1,12 +1,9 @@
 import React from 'react';
-import { Todo } from '../../models/todo';
+import { useTodos } from '../../context/TodoContext';
 import TodoItem from '../TodoItem/TodoItem';
 
-interface TodoListProps {
-	todos: Todo[];
-}
-
-const TodoList = ({ todos }: TodoListProps) => {
+const TodoList = () => {
+	const { todos } = useTodos();
 	return (
 		<ul>
 			{todos && todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)}
