@@ -65,6 +65,7 @@ const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 		<li className={`todo-item ${completed ? 'is-completed' : ''}`}>
 			<label>
 				<input
+					className="todo-item__toggler"
 					type="checkbox"
 					defaultChecked={completed}
 					onChange={handleToggleStatus}
