@@ -64,19 +64,21 @@ const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 	};
 	return (
 		<li className={`todo-item ${completed ? 'is-completed' : ''}`}>
-			<input
-				type="checkbox"
-				defaultChecked={completed}
-				onChange={handleToggleStatus}
-			/>
-			<span className="todo-item__name">{name}</span>
-			<button
-				className="todo-item__delete"
-				disabled={deleteLoading}
-				onClick={handleDelete}
-			>
-				Delete
-			</button>
+			<label>
+				<input
+					type="checkbox"
+					defaultChecked={completed}
+					onChange={handleToggleStatus}
+				/>
+				<span className="todo-item__name">{name}</span>
+				<button
+					className="todo-item__delete"
+					disabled={deleteLoading}
+					onClick={handleDelete}
+				>
+					Delete
+				</button>
+			</label>
 		</li>
 	);
 };
