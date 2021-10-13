@@ -111,11 +111,15 @@ const TodoForm = () => {
 
 				{Object.entries(errors).map(
 					([type, val], idx) =>
-						val && <p key={idx} className="error">{(errorsMessage as any)[type]}</p>
+						val && (
+							<p key={idx} className="error">
+								{(errorsMessage as any)[type]}
+							</p>
+						)
 				)}
 			</div>
 			<button type="submit" disabled={isDisabled}>
-				Add
+				{isLoading ? 'Adding' : 'Add'}
 			</button>
 		</form>
 	);

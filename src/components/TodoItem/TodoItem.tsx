@@ -10,11 +10,11 @@ interface TodoItemProps {
 
 const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 	const { setTodos } = useTodos();
-	const [deleteLoading, setDeleteLoading] = useState(false);
+	const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
 	// Handle delete todo
 	const handleDelete = async () => {
-		setDeleteLoading(true);
+		setIsDeleteLoading(true);
 		await fetch(`${API_URL}${id}`, {
 			method: 'DELETE',
 		})
@@ -23,11 +23,10 @@ const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 					throw Error(res.statusText);
 				}
 				setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
-				setDeleteLoading(false);
 			})
 			.catch((error) => {
 				console.log(error.message);
-				setDeleteLoading(false);
+				setIsDeleteLoading(false);
 			});
 	};
 
@@ -73,10 +72,10 @@ const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 				<span className="todo-item__name">{name}</span>
 				<button
 					className="todo-item__delete"
-					disabled={deleteLoading}
+					disabled={isDeleteLoading}
 					onClick={handleDelete}
 				>
-					Delete
+					{isDeleteLoading ? 'Deleting' : 'Delete'}
 				</button>
 			</label>
 		</li>
