@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, {
+	ChangeEvent,
+	FormEvent,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { API_URL } from '../../config/config';
 import { useTodos } from '../../context/TodoContext';
 import './TodoForm.styles.scss';
@@ -22,6 +28,7 @@ const TodoForm = () => {
 		isDuplicated: false,
 	});
 	const [isLoading, setIsLoading] = useState(false);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const isDisabled =
 		errors.isEmpty ||
@@ -92,6 +99,7 @@ const TodoForm = () => {
 				setTodos((prevTodos) => [...prevTodos, newTodo]);
 				setValue('');
 				setIsLoading(false);
+				inputRef?.current?.focus();
 			})
 			.catch((error) => {
 				setErrors(error.message);
@@ -99,10 +107,16 @@ const TodoForm = () => {
 			});
 	};
 
+	// Input focus on mount
+	useEffect(() => {
+		inputRef?.current?.focus();
+	}, []);
+
 	return (
 		<form id="form-todo" onSubmit={handleFormSubmit}>
 			<div>
 				<input
+					ref={inputRef}
 					type="text"
 					value={value}
 					onChange={handleInputChange}
