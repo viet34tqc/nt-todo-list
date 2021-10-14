@@ -62,7 +62,10 @@ const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
 			});
 	};
 	return (
-		<li className={`todo-item ${completed ? 'is-completed' : ''}`}>
+		<li
+			className={`todo-item ${completed ? 'is-completed' : ''}`}
+			data-testid={`task-id-${id}`}
+		>
 			<label>
 				<input
 					className="todo-item__toggler"

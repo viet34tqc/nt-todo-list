@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../config/config';
-import { useTodos } from '../../context/TodoContext';
 import { Todo } from '../../models/todo';
 import TodoItem from '../TodoItem/TodoItem';
 import './TodoList.styles.scss';
 
 const TodoList = () => {
-	const { todos, setTodos } = useTodos();
+	// const { todos, setTodos } = useTodos();
+	const [todos, setTodos] = useState<Todo[]>([]);
 	const [error, setError] = useState('');
 
 	// Call API to get Todos
@@ -15,7 +15,7 @@ const TodoList = () => {
 			await fetch(API_URL)
 				.then(async (res) => {
 					const todos: Todo[] = await res.json();
-					setTodos(() => todos);
+					setTodos(todos);
 				})
 				.catch((error) => {
 					setError(error.message);
@@ -23,7 +23,6 @@ const TodoList = () => {
 		})();
 	}, [setTodos]);
 
-	console.log( todos );
 
 	if (!todos.length) {
 		return <p>Loading...</p>;

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { TodoContext } from '../../context/TodoContext';
 import TodoForm from './TodoForm';
 
@@ -64,14 +64,18 @@ describe('TodoForm', () => {
 
 				expect(value.setTodos).not.toBeCalled();
 			});
-			test("Form submit and submit button changes text when the user enters valid email", () => {
+			test('Form submit and submit button changes text when the user enters valid email', async () => {
 				const inputField = screen.getByPlaceholderText('Enter your todo');
 				fireEvent.change(inputField, { target: { value: 'abc123@gmail.com' } });
 				fireEvent.click(screen.getByText('Add'));
 
-				expect(screen.queryByText('Add')).not.toBeInTheDocument();
-				expect(screen.getByText('Adding')).toBeInTheDocument();
-				expect(value.setTodos).not.toBeCalled();
+				expect(
+					screen.queryByRole('button', { name: 'Add' })
+				).not.toBeInTheDocument();
+				expect(
+					screen.getByRole('button', { name: 'Adding' })
+				).toBeInTheDocument();
+				await waitFor(() => expect(value.setTodos).toHaveBeenCalledTimes(1));
 			});
 		});
 	});
