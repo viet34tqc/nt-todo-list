@@ -21,6 +21,7 @@ describe('Render TodoList', () => {
 	});
 
 	test('Loading todo list', async () => {
+		// Asynchronous query
 		const displayedTasks = await screen.findAllByTestId(/task-id-\d+/);
 		expect(displayedTasks).toHaveLength(2);
 		expect(screen.getByText('Task One')).toBeInTheDocument();

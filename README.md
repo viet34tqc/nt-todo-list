@@ -19,7 +19,7 @@
   - Input text only accpepts email
   - Input text has focus on mount
   - The submit button is disabled when the input field is empty (user hasn't filled in anything yet, contains only space character...)
-  - There should be an error message when the user fills in the text and delete them
+  - There should be an error message when the validation fails
 - Call API when submit item
 - Click checkbox to toggle the item's completed status
 - Call API when delete the item
@@ -40,11 +40,13 @@
   - The input field mustn't be empty or contains empty characters
   - The input value must be email.
   - The submit button is disabled if the validation failed
-  - The submit button text changes to Adding when the form is submitting
-  - The input field is clear when the form is submitted successfully
-- Add todo when form submitted
+  - The submit button text changes to 'Adding' when the form is submitting
+  - When the form is submitted successfully
+    - The input field is clear
+    - The submit function is called
 - TodoList
-  - Render list of todo from API
+  - Loading text appears and waits to be removed
+  - Render list of todo
 - TodoItem
   - Delete todo
   - Toggle todo status
