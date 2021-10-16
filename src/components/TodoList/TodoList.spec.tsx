@@ -3,20 +3,15 @@ import {
 	screen,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
-import { TodoContext } from '../../context/TodoContext';
+import TodoContextProvider from '../../context/TodoContext';
 import TodoList from './TodoList';
-
-const value = {
-	todos: [],
-	setTodos: jest.fn(),
-};
 
 describe('Render TodoList', () => {
 	beforeEach(() => {
 		render(
-			<TodoContext.Provider value={value}>
+			<TodoContextProvider>
 				<TodoList />
-			</TodoContext.Provider>
+			</TodoContextProvider>
 		);
 	});
 
