@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { API_URL } from '../../config/config';
-import { useTodos } from '../../context/TodoContext';
 import { Todo } from '../../models/todo';
 import './TodoItem.styles.scss';
 
 interface TodoItemProps {
 	todo: Todo;
+	setTodos: Dispatch<SetStateAction<Todo[]>>;
 }
 
-const TodoItem = ({ todo: { id, name, completed } }: TodoItemProps) => {
-	const { setTodos } = useTodos();
+const TodoItem = ({
+	todo: { id, name, completed },
+	setTodos,
+}: TodoItemProps) => {
 	const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
 	// Handle delete todo

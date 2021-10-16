@@ -1,12 +1,14 @@
 import React, {
 	ChangeEvent,
+	Dispatch,
 	FormEvent,
+	SetStateAction,
 	useEffect,
 	useRef,
 	useState,
 } from 'react';
 import { API_URL } from '../../config/config';
-import { useTodos } from '../../context/TodoContext';
+import { Todo } from '../../models/todo';
 import './TodoForm.styles.scss';
 
 const errorsMessage = {
@@ -19,8 +21,12 @@ const pattern = new RegExp(
 	/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
 );
 
-const TodoForm = () => {
-	const { todos, setTodos } = useTodos();
+interface TodoFormProps {
+	todos: Todo[];
+	setTodos: Dispatch<SetStateAction<Todo[]>>;
+}
+
+const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 	const [value, setValue] = useState('');
 	const [errors, setErrors] = useState({
 		isEmpty: false,

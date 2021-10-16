@@ -1,19 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { TodoContext } from '../../context/TodoContext';
+import { mockTodos } from '../../mocks/handlers';
 import TodoForm from './TodoForm';
 
-const value = {
-	todos: [],
-	setTodos: jest.fn(),
-};
-
 describe('TodoForm', () => {
+	const setTodos = jest.fn();
 	beforeEach(() => {
-		render(
-			<TodoContext.Provider value={value}>
-				<TodoForm />
-			</TodoContext.Provider>
-		);
+		render(<TodoForm todos={mockTodos} setTodos={setTodos} />);
 	});
 	describe('TodoForm render', () => {
 		test('TodoForm contains an input text and it has focus on mount', () => {
@@ -62,7 +54,7 @@ describe('TodoForm', () => {
 				fireEvent.change(inputField, { target: { value: 'abc123' } });
 				fireEvent.click(screen.getByText('Add'));
 
-				expect(value.setTodos).not.toBeCalled();
+				expect(setTodos).not.toBeCalled();
 			});
 			test('Form submit and submit button changes text when the user enters valid email', async () => {
 				const inputField = screen.getByPlaceholderText('Enter your todo');
@@ -75,7 +67,7 @@ describe('TodoForm', () => {
 				expect(
 					screen.getByRole('button', { name: 'Adding' })
 				).toBeInTheDocument();
-				await waitFor(() => expect(value.setTodos).toHaveBeenCalledTimes(1));
+				await waitFor(() => expect(setTodos).toHaveBeenCalledTimes(1));
 			});
 		});
 	});
