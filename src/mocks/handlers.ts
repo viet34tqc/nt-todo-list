@@ -19,6 +19,28 @@ export const handlers = [
 		);
 	}),
 
+	rest.put<Todo>(`${API_URL}:todoID`, (req, res, ctx) => {
+		const { id, name, completed } = req?.body;
+		return res(
+			ctx.json({
+				id,
+				name,
+				completed: !completed,
+			})
+		);
+	}),
+
+	rest.delete<Todo>(`${API_URL}:todoID`, (req, res, ctx) => {
+		const { id, name, completed } = req?.body;
+		return res(
+			ctx.json({
+				id,
+				name,
+				completed,
+			})
+		);
+	}),
+
 	rest.get<Todo[]>(API_URL, (req, res, ctx) => {
 		return res(ctx.json(mockTodos));
 	}),
