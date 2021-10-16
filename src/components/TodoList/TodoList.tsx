@@ -10,10 +10,10 @@ interface TodoListProps {
 }
 
 const TodoList = ({ todos, setTodos, error }: TodoListProps) => {
-	if (!todos.length) {
-		return <p>Loading...</p>;
-	} else if (error) {
+	if (error) {
 		return <p>{error}</p>;
+	} else if (!todos.length) {
+		return <p>Loading...</p>;
 	}
 	return (
 		<ul className="todo-list">

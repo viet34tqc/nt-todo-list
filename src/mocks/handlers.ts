@@ -23,3 +23,7 @@ export const handlers = [
 		return res(ctx.json(mockTodos));
 	}),
 ];
+
+export const getTodoError = rest.get(API_URL, async (req, res, ctx) =>
+	res.once(ctx.status(500), ctx.json({ message: 'Cannot get data' }))
+);

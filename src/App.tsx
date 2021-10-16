@@ -13,6 +13,9 @@ function App() {
 		(async function () {
 			await fetch(API_URL)
 				.then(async (res) => {
+					if (!res.ok) {
+						throw Error(res.statusText);
+					}
 					const todos: Todo[] = await res.json();
 					setTodos(todos);
 				})
