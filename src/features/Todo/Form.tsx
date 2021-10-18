@@ -7,9 +7,9 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { API_URL } from '../../config/config';
-import { Todo } from '../../models/todo';
-import './TodoForm.styles.scss';
+import { API_URL } from 'src/config/config';
+import { Todo } from 'src/models/todo';
+import './styles/TodoForm.scss';
 
 const errorsMessage = {
 	isEmpty: 'Please enter your todo item',

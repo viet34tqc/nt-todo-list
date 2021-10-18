@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Todo } from '../../models/todo';
-import TodoItem from '../TodoItem/TodoItem';
-import './TodoList.styles.scss';
+import { Todo } from 'src/models/todo';
+import TodoItem from './Item';
+import './styles/TodoList.scss';
 
 interface TodoListProps {
 	todos: Todo[];
