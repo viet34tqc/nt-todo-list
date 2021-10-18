@@ -7,7 +7,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { API_URL } from 'src/config/config';
+import todoApi from 'src/api/todoApi';
 import { Todo } from 'src/models/todo';
 import './styles/TodoForm.scss';
 
@@ -87,30 +87,19 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 		}
 
 		// Call API
-		await fetch(API_URL, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+		try {
+			const newTodo = await todoApi.add({
 				name: value.trim(),
 				completed: false,
-			}),
-		})
-			.then(async (res) => {
-				if (!res.ok) {
-					throw Error(res.statusText);
-				}
-				const newTodo = await res.json();
-				setTodos((prevTodos) => [...prevTodos, newTodo]);
-				setValue('');
-				setIsLoading(false);
-				inputRef?.current?.focus();
-			})
-			.catch((error) => {
-				setErrors(error.message);
-				setIsLoading(false);
 			});
+			setTodos((prevTodos) => [...prevTodos, newTodo]);
+			setValue('');
+			setIsLoading(false);
+			inputRef?.current?.focus();
+		} catch (error: any) {
+			setErrors(error.message);
+			setIsLoading(false);
+		}
 	};
 
 	// Input focus on mount

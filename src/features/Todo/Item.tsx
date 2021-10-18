@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { API_URL } from 'src/config/config';
+import todoApi from 'src/api/todoApi';
 import { Todo } from 'src/models/todo';
 import './styles/TodoItem.scss';
 
@@ -17,51 +17,36 @@ const TodoItem = ({
 	// Handle delete todo
 	const handleDelete = async () => {
 		setIsDeleteLoading(true);
-		await fetch(`${API_URL}${id}`, {
-			method: 'DELETE',
-		})
-			.then(async (res) => {
-				if (!res.ok) {
-					throw Error(res.statusText);
-				}
-				setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
-			})
-			.catch((error) => {
-				console.log(error.message);
-				setIsDeleteLoading(false);
-			});
+		try {
+			await todoApi.delete(id);
+			setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
+		} catch (error: any) {
+			console.log(error.message);
+			setIsDeleteLoading(false);
+		}
 	};
 
 	// Handle toggle todo
 	const handleToggleStatus = async () => {
-		await fetch(`${API_URL}${id}`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
+		try {
+			await todoApi.toggleStatus({
+				id,
 				completed: !completed,
-			}),
-		})
-			.then(async (res) => {
-				if (!res.ok) {
-					throw Error(res.statusText);
-				}
-				setTodos((prevTodos) => {
-					return prevTodos.map((todo) => {
-						if (todo.id !== id) {
-							return todo;
-						}
-						return {
-							...todo,
-							completed: !todo.completed,
-						};
-					});
-				});
-			})
-			.catch((error) => {
-				console.log(error.message);
 			});
+			setTodos((prevTodos) => {
+				return prevTodos.map((todo) => {
+					if (todo.id !== id) {
+						return todo;
+					}
+					return {
+						...todo,
+						completed: !todo.completed,
+					};
+				});
+			});
+		} catch (error: any) {
+			console.log(error.message);
+		}
 	};
 	return (
 		<li
