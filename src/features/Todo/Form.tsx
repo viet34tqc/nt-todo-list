@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import todoApi from 'src/api/todoApi';
 import { Todo } from 'src/models/todo';
+import { todoSchema } from 'src/validation/todoSchema';
 import './styles/TodoForm.scss';
 
 const errorsMessage = {
@@ -17,10 +18,6 @@ const errorsMessage = {
 	isDuplicated: 'Your item is already on the list',
 };
 
-const pattern = new RegExp(
-	/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-);
-
 interface TodoFormProps {
 	todos: Todo[];
 	setTodos: Dispatch<SetStateAction<Todo[]>>;
@@ -28,47 +25,24 @@ interface TodoFormProps {
 
 const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 	const [value, setValue] = useState('');
-	const [errors, setErrors] = useState({
-		isEmpty: false,
-		isInvalidEmail: false,
-		isDuplicated: false,
-	});
+	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const isDisabled =
-		errors.isEmpty ||
-		errors.isInvalidEmail ||
-		errors.isDuplicated ||
-		!value ||
-		isLoading;
+	const isDisabled = !!error || !value || isLoading;
 
-	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setValue(value);
 
-		if (!value.trim()) {
-			setErrors({
-				...errors,
-				isEmpty: true,
-				isInvalidEmail: false,
-				isDuplicated: false,
+		todoSchema
+			.validate({ name: value }, { abortEarly: false })
+			.then(() => {
+				setError('');
+			})
+			.catch((error) => {
+				setError(error?.message || '');
 			});
-		} else if (!pattern.test(value.trim())) {
-			setErrors({
-				...errors,
-				isEmpty: false,
-				isInvalidEmail: true,
-				isDuplicated: false,
-			});
-		} else {
-			setErrors({
-				...errors,
-				isEmpty: false,
-				isInvalidEmail: false,
-				isDuplicated: false,
-			});
-		}
 	};
 
 	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -81,7 +55,7 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 		});
 
 		if (includedItem) {
-			setErrors({ ...errors, isDuplicated: true });
+			setError('Your item is already on the list');
 			setIsLoading(false);
 			return;
 		}
@@ -97,7 +71,8 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 			setIsLoading(false);
 			inputRef?.current?.focus();
 		} catch (error: any) {
-			setErrors(error.message);
+			setError(error.message);
+			inputRef?.current?.focus();
 			setIsLoading(false);
 		}
 	};
@@ -117,15 +92,7 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 					onChange={handleInputChange}
 					placeholder="Enter your todo"
 				/>
-
-				{Object.entries(errors).map(
-					([type, val], idx) =>
-						val && (
-							<p key={idx} className="error">
-								{(errorsMessage as any)[type]}
-							</p>
-						)
-				)}
+				<p className="error">{error}</p>
 			</div>
 			<button type="submit" disabled={isDisabled}>
 				{isLoading ? 'Adding' : 'Add'}
