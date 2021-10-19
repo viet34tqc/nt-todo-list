@@ -5,11 +5,11 @@ import {
 	waitFor,
 	waitForElementToBeRemoved,
 } from '@testing-library/react';
-import App from 'src/App';
 import { getTodoError, mockTodos } from 'src/features/Todo/mocks/handlers';
 import { server } from 'src/server';
 import TodoForm from './Form';
 import TodoItem from './Item';
+import Todo from './Todo';
 
 describe('TodoForm', () => {
 	const setTodos = jest.fn();
@@ -111,7 +111,7 @@ describe('TodoItem', () => {
 describe('TodoList', () => {
 	describe('Load Todo from API successfully', () => {
 		beforeEach(() => {
-			render(<App />);
+			render(<Todo />);
 		});
 		test('Loading text is shown while the API is in progress', async () => {
 			const loading = screen.getByText('Loading...');
@@ -129,9 +129,9 @@ describe('TodoList', () => {
 
 	it('Displays error message when fetching todos', async () => {
 		server.use(getTodoError);
-		render(<App />);
+		render(<Todo />);
 
-		const errorDisplay = await screen.findByText('Internal Server Error');
+		const errorDisplay = await screen.findByText('Cannot get data');
 		expect(errorDisplay).toBeInTheDocument();
 
 		const displayedTasks = screen.queryAllByTestId(/task-id-\d+/);

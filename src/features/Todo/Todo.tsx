@@ -15,7 +15,7 @@ const Todo = () => {
 				const todos: TodoType[] = await todoApi.getAll();
 				setTodos(todos);
 			} catch (error: any) {
-				setError(error?.message || 'Cannot load data');
+				setError(error?.response?.data?.message || 'Cannot get data');
 			}
 		})();
 	}, [setTodos]);

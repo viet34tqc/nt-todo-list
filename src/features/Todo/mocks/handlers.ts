@@ -1,6 +1,7 @@
 import { rest } from 'msw';
-import { API_URL } from '../../../config/config';
-import { Todo } from '../../../models/todo';
+import { API_URL } from 'src/config/config';
+import { Todo } from 'src/models/todo';
+console.log('API_URL', API_URL)
 
 export const mockTodos = [
 	{ id: '1', name: 'Task One', completed: true },
@@ -8,7 +9,7 @@ export const mockTodos = [
 ];
 
 export const todoHandlers = [
-	rest.post<Todo>(API_URL, (req, res, ctx) => {
+	rest.post<Todo>(`${API_URL}/todo`, (req, res, ctx) => {
 		const { id, name, completed } = req?.body;
 		return res(
 			ctx.json({
@@ -19,7 +20,7 @@ export const todoHandlers = [
 		);
 	}),
 
-	rest.put<Todo>(`${API_URL}:todoID`, (req, res, ctx) => {
+	rest.put<Todo>(`${API_URL}/todo/:todoID`, (req, res, ctx) => {
 		const { id, name, completed } = req?.body;
 		return res(
 			ctx.json({
@@ -30,7 +31,7 @@ export const todoHandlers = [
 		);
 	}),
 
-	rest.delete<Todo>(`${API_URL}:todoID`, (req, res, ctx) => {
+	rest.delete<Todo>(`${API_URL}/todo/:todoID`, (req, res, ctx) => {
 		const { id, name, completed } = req?.body;
 		return res(
 			ctx.json({
@@ -41,11 +42,11 @@ export const todoHandlers = [
 		);
 	}),
 
-	rest.get<Todo[]>(API_URL, (req, res, ctx) => {
+	rest.get<Todo[]>(`${API_URL}/todo`, (req, res, ctx) => {
 		return res(ctx.json(mockTodos));
 	}),
 ];
 
-export const getTodoError = rest.get(API_URL, async (req, res, ctx) =>
+export const getTodoError = rest.get(`${API_URL}/todo`, async (req, res, ctx) =>
 	res.once(ctx.status(500), ctx.json({ message: 'Cannot get data' }))
 );
