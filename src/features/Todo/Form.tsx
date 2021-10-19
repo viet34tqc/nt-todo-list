@@ -1,61 +1,49 @@
-import React, {
-	ChangeEvent,
-	Dispatch,
-	FormEvent,
-	SetStateAction,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import todoApi from 'src/api/todoApi';
 import { Todo } from 'src/models/todo';
 import { todoSchema } from 'src/validation/todoSchema';
 import './styles/TodoForm.scss';
-
-const errorsMessage = {
-	isEmpty: 'Please enter your todo item',
-	isInvalidEmail: 'Please enter valid email address',
-	isDuplicated: 'Your item is already on the list',
-};
 
 interface TodoFormProps {
 	todos: Todo[];
 	setTodos: Dispatch<SetStateAction<Todo[]>>;
 }
 
+interface TodoFormInputs {
+	name: string;
+}
+
 const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
-	const [value, setValue] = useState('');
-	const [error, setError] = useState('');
+	const {
+		register,
+		handleSubmit,
+		setFocus,
+		setError,
+		setValue,
+		formState: { errors },
+	} = useForm<TodoFormInputs>({
+		mode: 'onChange', // React Hook Form check validation on input change (default is onSubmit)
+		resolver: yupResolver(todoSchema),
+	});
+
 	const [isLoading, setIsLoading] = useState(false);
-	const inputRef = useRef<HTMLInputElement>(null);
+	const isDisabled = !!errors?.name?.message || isLoading;
 
-	const isDisabled = !!error || !value || isLoading;
-
-	const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value;
-		setValue(value);
-
-		todoSchema
-			.validate({ name: value }, { abortEarly: false })
-			.then(() => {
-				setError('');
-			})
-			.catch((error) => {
-				setError(error?.message || '');
-			});
-	};
-
-	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const onSubmit: SubmitHandler<TodoFormInputs> = async ({ name }) => {
 		setIsLoading(true);
 
 		// Check duplicate
 		const includedItem = todos.some((todo) => {
-			return todo.name.trim() === value.trim();
+			return todo.name.trim() === name.trim();
 		});
 
 		if (includedItem) {
-			setError('Your item is already on the list');
+			setError('name', {
+				type: 'manual',
+				message: 'Your item is already on the list',
+			});
 			setIsLoading(false);
 			return;
 		}
@@ -63,36 +51,33 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 		// Call API
 		try {
 			const newTodo = await todoApi.add({
-				name: value.trim(),
+				name: name.trim(),
 				completed: false,
 			});
 			setTodos((prevTodos) => [...prevTodos, newTodo]);
-			setValue('');
 			setIsLoading(false);
-			inputRef?.current?.focus();
+			setFocus('name');
+			setValue('name', '');
 		} catch (error: any) {
-			setError(error.message);
-			inputRef?.current?.focus();
 			setIsLoading(false);
+			setFocus('name');
 		}
 	};
 
 	// Input focus on mount
 	useEffect(() => {
-		inputRef?.current?.focus();
-	}, []);
+		setFocus('name');
+	}, [setFocus]);
 
 	return (
-		<form id="form-todo" onSubmit={handleFormSubmit}>
+		<form id="form-todo" onSubmit={handleSubmit(onSubmit)}>
 			<div>
 				<input
-					ref={inputRef}
+					{...register('name')}
 					type="text"
-					value={value}
-					onChange={handleInputChange}
 					placeholder="Enter your todo"
 				/>
-				<p className="error">{error}</p>
+				<p className="error">{errors?.name?.message}</p>
 			</div>
 			<button type="submit" disabled={isDisabled}>
 				{isLoading ? 'Adding' : 'Add'}
