@@ -1,7 +1,6 @@
 import { rest } from 'msw';
 import { API_URL } from 'src/config/config';
 import { Todo } from 'src/models/todo';
-console.log('API_URL', API_URL)
 
 export const mockTodos = [
 	{ id: '1', name: 'Task One', completed: true },

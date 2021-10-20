@@ -48,10 +48,11 @@ const TodoItem = ({
 			console.log(error.message);
 		}
 	};
+
 	return (
 		<li
 			className={`todo-item ${completed ? 'is-completed' : ''}`}
-			data-testid={`task-id-${id}`}
+			data-testid={`task-${id}`}
 		>
 			<label>
 				<input
@@ -59,12 +60,14 @@ const TodoItem = ({
 					type="checkbox"
 					defaultChecked={completed}
 					onChange={handleToggleStatus}
+					data-testid={`checkbox-${id}`}
 				/>
 				<span className="todo-item__name">{name}</span>
 				<button
 					className="todo-item__delete"
 					disabled={isDeleteLoading}
 					onClick={handleDelete}
+					data-testid={`delete-${id}`}
 				>
 					{isDeleteLoading ? 'Deleting' : 'Delete'}
 				</button>

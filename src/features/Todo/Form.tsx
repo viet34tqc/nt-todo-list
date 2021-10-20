@@ -77,7 +77,7 @@ const TodoForm = ({ todos, setTodos }: TodoFormProps) => {
 					type="text"
 					placeholder="Enter your todo"
 				/>
-				<p className="error">{errors?.name?.message}</p>
+				{errors?.name && <p className="error">{errors.name.message}</p>}
 			</div>
 			<button type="submit" disabled={isDisabled}>
 				{isLoading ? 'Adding' : 'Add'}
