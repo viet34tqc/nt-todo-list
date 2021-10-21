@@ -8,6 +8,7 @@
   - An input text
   - A submit button
 - A list of todo items get from API
+- A status filter
 - Each todo item has:
   - Name of the item
   - A checkbox to toggling its state
