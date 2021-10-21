@@ -28,6 +28,7 @@ const TodoFilter = ({ onFilter }: TodoFilterProps) => {
 					type="radio"
 					name="status"
 					value="completed"
+					data-testid="filter-complete"
 					onChange={handleChange}
 				/>
 				<span className="form-control__label">Completed</span>
@@ -38,6 +39,7 @@ const TodoFilter = ({ onFilter }: TodoFilterProps) => {
 					type="radio"
 					name="status"
 					value="incompleted"
+					data-testid="filter-incomplete"
 					onChange={handleChange}
 				/>
 				<span className="form-control__label">Incompleted</span>

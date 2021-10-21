@@ -7,6 +7,7 @@ import {
 } from '@testing-library/react';
 import { getTodoError, mockTodos } from 'src/features/Todo/mocks/handlers';
 import { server } from 'src/server';
+import TodoFilter from './Filter';
 import TodoForm from './Form';
 import TodoItem from './Item';
 import Todo from './Todo';
@@ -122,6 +123,17 @@ describe('TodoItem', () => {
 	});
 });
 
+describe('TodoFilter', () => {
+	describe('TodoFilter render', () => {
+		const onFilter = jest.fn();
+		render(<TodoFilter onFilter={onFilter} />);
+
+		expect(screen.getByLabelText('All')).toBeInTheDocument();
+		expect(screen.getByLabelText('Completed')).toBeInTheDocument();
+		expect(screen.getByLabelText('Incompleted')).toBeInTheDocument();
+	});
+});
+
 describe('TodoList', () => {
 	describe('Load Todo from API successfully', () => {
 		beforeEach(() => {
@@ -139,7 +151,23 @@ describe('TodoList', () => {
 			expect(screen.getByText('Task One')).toBeInTheDocument();
 			expect(screen.getByText('Task Two')).toBeInTheDocument();
 		});
+	});
 
+	it('Displays error message when fetching todos', async () => {
+		server.use(getTodoError);
+		render(<Todo />);
+
+		const errorDisplay = await screen.findByText('Cannot get data');
+		expect(errorDisplay).toBeInTheDocument();
+
+		const displayedTasks = screen.queryAllByTestId(/task-\d+/);
+		expect(displayedTasks).toEqual([]);
+	});
+
+	describe('TodoList interactions', () => {
+		beforeEach(() => {
+			render(<Todo />);
+		});
 		test('should delete first Todo item', async () => {
 			const button = await screen.findByTestId(/delete-1/i);
 			fireEvent.click(button);
@@ -155,16 +183,20 @@ describe('TodoList', () => {
 				expect(screen.getByTestId(/task-2/i)).toHaveClass('is-completed');
 			});
 		});
-	});
 
-	it('Displays error message when fetching todos', async () => {
-		server.use(getTodoError);
-		render(<Todo />);
-
-		const errorDisplay = await screen.findByText('Cannot get data');
-		expect(errorDisplay).toBeInTheDocument();
-
-		const displayedTasks = screen.queryAllByTestId(/task-\d+/);
-		expect(displayedTasks).toEqual([]);
+		test('should display only completed todos when select complete radio', async () => {
+			const completeRadio = await screen.findByTestId(/filter-complete/i);
+			fireEvent.click(completeRadio);
+			await waitFor(() => {
+				expect(screen.queryByTestId(/task-2/i)).not.toBeInTheDocument();
+			});
+		});
+		test('should display only incompleted todos when select incomplete radio', async () => {
+			const incompleteRadio = await screen.findByTestId(/filter-incomplete/i);
+			fireEvent.click(incompleteRadio);
+			await waitFor(() => {
+				expect(screen.queryByTestId(/task-1/i)).not.toBeInTheDocument();
+			});
+		});
 	});
 });
