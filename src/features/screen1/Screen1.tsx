@@ -8,13 +8,13 @@ const Screen1 = () => {
 	useEffect(() => {
 		(async function () {
 			try {
-				const todo = await todoApi.get();
+				const todo: Todo = await todoApi.get();
 				setTodo(todo);
 			} catch (error: any) {
 				console.log(error.message);
 			}
 		})();
-	}, []);
+	}, [setTodo]);
 
 	return (
 		<div>
