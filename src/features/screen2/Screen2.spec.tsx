@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Screen2 from './Screen2';
 
-describe('Test screen 1', () => {
+describe('Test screen 2', () => {
 	beforeEach(() => {
 		render(
 			<BrowserRouter>
@@ -11,7 +11,7 @@ describe('Test screen 1', () => {
 		);
 	});
 	test('should display the title of todo fetched from API', async () => {
+		expect(await screen.findByText(/Task Two/)).toBeInTheDocument();
 		expect(await screen.findByText('This is screen 2')).toBeInTheDocument();
-		expect(await screen.findByText(/Task One/)).toBeInTheDocument();
-	});n
+	});
 });

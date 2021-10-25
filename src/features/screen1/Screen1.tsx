@@ -8,19 +8,21 @@ const Screen1 = () => {
 	useEffect(() => {
 		(async function () {
 			try {
-				const todo: Todo = await todoApi.get();
+				const todo = await todoApi.get(1);
 				setTodo(todo);
 			} catch (error: any) {
 				console.log(error.message);
 			}
 		})();
-	}, [setTodo]);
+	}, []);
 
 	return (
 		<div>
 			<h1>This is screen 1</h1>
 			<div>Name: {todo?.title}</div>
-			<Link to="/screen2">Go to screen 2</Link>
+			<Link data-testid="screen1-btn" to="/screen2">
+				Go to screen 2
+			</Link>
 		</div>
 	);
 };

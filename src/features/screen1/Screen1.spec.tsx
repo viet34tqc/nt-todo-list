@@ -11,7 +11,7 @@ describe('Test screen 1', () => {
 		);
 	});
 	test('should display the title of todo fetched from API', async () => {
-		expect(await screen.findByText('This is screen 1')).toBeInTheDocument();
 		expect(await screen.findByText(/Task One/)).toBeInTheDocument();
+		expect(await screen.findByText('This is screen 1')).toBeInTheDocument();
 	});
 });

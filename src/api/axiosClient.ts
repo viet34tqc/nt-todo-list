@@ -4,7 +4,7 @@ axios.defaults.headers.get['Accept'] = 'application/json'; // default header for
 axios.defaults.headers.post['Accept'] = 'application/json'; // default header for all POST request
 
 const axiosTodoClient = axios.create({
-	baseURL: 'https://jsonplaceholder.typicode.com/todos/1',
+	baseURL: 'https://jsonplaceholder.typicode.com/todos/',
 });
 
 // Add a request interceptor

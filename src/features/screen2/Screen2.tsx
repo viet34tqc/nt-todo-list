@@ -9,7 +9,7 @@ const Screen2 = () => {
 	useEffect(() => {
 		(async function () {
 			try {
-				const todo = await todoApi.get();
+				const todo = await todoApi.get(2);
 				setTodo(todo);
 			} catch (error: any) {
 				console.log(error.message);
@@ -20,7 +20,9 @@ const Screen2 = () => {
 		<div>
 			<h1>This is screen 2</h1>
 			<div>Name: {todo?.title}</div>
-			<Link to="/">Back to screen 1</Link>
+			<Link data-testid="screen2-btn" to="/">
+				Back to screen 1
+			</Link>
 		</div>
 	);
 };
