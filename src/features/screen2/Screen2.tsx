@@ -23,6 +23,8 @@ const Screen2 = () => {
 			<Link data-testid="screen2-btn" to="/">
 				Back to screen 1
 			</Link>
+			<br />
+			<Link to="/profile">Go to profile form</Link>
 		</div>
 	);
 };
