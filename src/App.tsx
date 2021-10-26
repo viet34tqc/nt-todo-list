@@ -13,6 +13,7 @@ function App() {
 					<Route path="/" render={() => <Screen1 />} exact />
 					<Route path="/screen2" render={() => <Screen2 />} />
 					<Route path="/profile" render={() => <ProfileForm />} />
+					<Route render={() => <div>Not found</div>} />
 				</Switch>
 			</Router>
 		</Suspense>
