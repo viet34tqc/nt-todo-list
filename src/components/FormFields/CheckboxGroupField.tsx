@@ -19,7 +19,6 @@ const CheckboxGroupField = ({
 	name,
 	control,
 	label,
-	placeholder,
 	options,
 }: CheckboxGroupFieldProps) => {
 	const {
