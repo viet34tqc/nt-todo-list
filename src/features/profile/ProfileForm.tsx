@@ -38,7 +38,7 @@ function transformProfileValue(key: string, value: string | string[]) {
 }
 
 const ProfileForm = () => {
-	const [data, setData] = useState(defaultValues);
+	const [data, setData] = useState<ProfileFormInputs>(defaultValues);
 	const schema = yup.object({
 		fullname: yup.string().required(),
 		username: yup.string(),
