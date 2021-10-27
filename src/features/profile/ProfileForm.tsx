@@ -40,9 +40,12 @@ function transformProfileValue(key: string, value: string | string[]) {
 const ProfileForm = () => {
 	const [data, setData] = useState<ProfileFormInputs>(defaultValues);
 	const schema = yup.object({
-		fullname: yup.string().required(),
+		fullname: yup.string(),
 		username: yup.string(),
-		email: yup.string().email('Please enter valid email').required(),
+		email: yup
+			.string()
+			.email('Please enter valid email')
+			.required('Please enter your email'),
 		about: yup.string(),
 		password: yup.string(),
 		newPassword: yup.string(),
@@ -58,7 +61,6 @@ const ProfileForm = () => {
 		resolver: yupResolver(schema),
 	});
 	const handleFormSubmit: SubmitHandler<ProfileFormInputs> = (formsValue) => {
-		console.log('formsValue', formsValue);
 		setData({ ...data, ...formsValue });
 	};
 	return (
@@ -133,7 +135,7 @@ const ProfileForm = () => {
 						<Button variant="primary" type="submit" disabled={isSubmitting}>
 							Save Change
 						</Button>
-						{data.fullname && (
+						{data.email && (
 							<>
 								<div style={{ marginTop: '20px' }}>Your submitted data is:</div>
 								<ul>
