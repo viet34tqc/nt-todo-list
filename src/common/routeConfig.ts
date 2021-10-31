@@ -1,3 +1,4 @@
+import loginRoute from 'src/features/login/route';
 import notFoundRoute from 'src/features/notFound/route';
 import profileFormRoute from 'src/features/profile/route';
 import screen1Route from 'src/features/screen1/route';
@@ -8,6 +9,7 @@ const routes: RouteType[] = [
 	profileFormRoute,
 	screen1Route,
 	screen2Route,
+	loginRoute,
 	notFoundRoute,
 ];
 
