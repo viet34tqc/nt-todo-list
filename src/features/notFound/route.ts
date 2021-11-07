@@ -1,6 +1,6 @@
 import { lazy } from 'react';
-import { RouteType } from 'src/types/route';
-const NotFound = lazy(() => import('./NotFound'));
+import { RouteType } from 'src/core/types/route';
+const NotFound = lazy(() => import('.'));
 
 const notFoundRoute: RouteType = {
 	path: '*',

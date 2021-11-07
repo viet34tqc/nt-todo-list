@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import todoApi from './todoApi';
-import { Todo } from '../../types/todo';
+import { Todo } from './todo';
 
 const Screen1 = () => {
 	const [todo, setTodo] = useState<Todo>();

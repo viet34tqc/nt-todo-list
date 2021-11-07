@@ -1,6 +1,6 @@
-import { getTodoError } from 'src/mocks/handlers/todo';
-import { server } from 'src/mocks/server';
-import { Todo } from 'src/types/todo';
+import { getTodoError } from 'src/core/mocks/handlers/todo';
+import { server } from 'src/core/mocks/server';
+import { Todo } from 'src/features/screen1/todo';
 import { axiosTodoClient } from './axiosClient';
 
 test('axiosClient success', async () => {

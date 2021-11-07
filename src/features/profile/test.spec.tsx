@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import ProfileForm from './ProfileForm';
+import ProfileForm from '.';
 
 describe('ProfileForm', () => {
 	beforeEach(() => {

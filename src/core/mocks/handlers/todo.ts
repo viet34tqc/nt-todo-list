@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { Todo } from 'src/types/todo';
+import { Todo } from 'src/features/screen1/todo';
 
 export const mockTodos = [
 	{ id: '1', title: 'Task One', completed: true },

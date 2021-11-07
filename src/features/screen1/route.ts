@@ -1,7 +1,7 @@
 import { lazy } from 'react';
-import { RouteType } from 'src/types/route';
+import { RouteType } from 'src/core/types/route';
 
-const Screen1 = lazy(() => import('./Screen1'));
+const Screen1 = lazy(() => import('.'));
 
 const screen1Route: RouteType = {
 	path: '/',

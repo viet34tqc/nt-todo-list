@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router';
-import AuthenticationService from 'src/authenticationService';
+import AuthenticationService from 'src/core/authenticationService';
 
 const Login = () => {
 	const history = useHistory();

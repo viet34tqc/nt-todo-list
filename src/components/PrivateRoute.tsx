@@ -1,5 +1,5 @@
 import { Redirect, Route, RouteProps } from 'react-router';
-import AuthenticationService from 'src/authenticationService';
+import AuthenticationService from 'src/core/authenticationService';
 
 const PrivateRoute = (props: RouteProps) => {
 	const authentication = AuthenticationService.getInstance();

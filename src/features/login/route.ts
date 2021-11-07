@@ -1,6 +1,6 @@
 import { lazy } from 'react';
-import { RouteType } from 'src/types/route';
-const Login = lazy(() => import('./Login'));
+import { RouteType } from 'src/core/types/route';
+const Login = lazy(() => import('.'));
 
 const loginRoute: RouteType = {
 	path: '/login',

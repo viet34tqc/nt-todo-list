@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Screen1 from './Screen1';
+import Screen1 from '.';
 
 describe('Test screen 1', () => {
 	beforeEach(() => {

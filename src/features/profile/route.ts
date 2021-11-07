@@ -1,7 +1,7 @@
 import { lazy } from 'react';
-import { RouteType } from 'src/types/route';
+import { RouteType } from 'src/core/types/route';
 
-const ProfileForm = lazy(() => import('./ProfileForm'));
+const ProfileForm = lazy(() => import('.'));
 
 const profileFormRoute: RouteType = {
 	path: '/profile',
