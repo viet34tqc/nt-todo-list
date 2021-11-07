@@ -1,9 +1,10 @@
 import { Redirect, Route, RouteProps } from 'react-router';
+import AuthenticationService from 'src/authenticationService';
 
 const PrivateRoute = (props: RouteProps) => {
-	const isLoggedIn = Boolean(localStorage.getItem('access_token'));
+	const authentication = AuthenticationService.getInstance();
 
-	if (!isLoggedIn) {
+	if (!authentication.token) {
 		return <Redirect to="/login" />;
 	}
 

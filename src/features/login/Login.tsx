@@ -4,7 +4,10 @@ import AuthenticationService from 'src/authenticationService';
 const Login = () => {
 	const history = useHistory();
 	const handleClick = () => {
-		const authentication = new AuthenticationService();
+		const authentication = AuthenticationService.getInstance();
+
+		// Call API and set the token to the authentication instance
+		authentication.authenticated({ token: 'test' });
 		if (authentication.token) {
 			history.push('/profile');
 		}
