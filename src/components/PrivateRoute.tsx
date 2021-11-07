@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Redirect, Route, RouteProps } from 'react-router';
 import AuthenticationService from 'src/core/authenticationService';
 
