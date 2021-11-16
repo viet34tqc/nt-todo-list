@@ -1,33 +1,14 @@
-import { Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import routes from './core/routeConfig';
-import PrivateRoute from './components/PrivateRoute';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorFallback';
+import RouterWrapper from './components/RouterWrapper';
 
 function App() {
 	return (
-		<Suspense fallback={<span>Loading...</span>}>
-			<Router>
-				<Switch>
-					{routes.map((route) =>
-						route.private ? (
-							<PrivateRoute
-								key={route.path}
-								path={route.path}
-								render={() => <route.component />}
-								exact={route?.exact}
-							/>
-						) : (
-							<Route
-								key={route.path}
-								path={route.path}
-								render={() => <route.component />}
-								exact={route?.exact}
-							/>
-						)
-					)}
-				</Switch>
-			</Router>
-		</Suspense>
+		<>
+			<ErrorBoundary FallbackComponent={ErrorFallback}>
+				<RouterWrapper />;
+			</ErrorBoundary>
+		</>
 	);
 }
 
