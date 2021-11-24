@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1636261580550" clover="3.2.0">
-  <project timestamp="1636261580550" name="All files">
-    <metrics statements="66" coveredstatements="59" conditionals="22" coveredconditionals="17" methods="27" coveredmethods="25" elements="115" coveredelements="101" complexity="0" loc="66" ncloc="66" packages="7" files="10" classes="10"/>
-    <package name="src">
-      <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
-      <file name="App.tsx" path="D:\react\nt-todolist\src\App.tsx">
-        <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
+<coverage generated="1637745464336" clover="3.2.0">
+  <project timestamp="1637745464337" name="All files">
+    <metrics statements="67" coveredstatements="60" conditionals="22" coveredconditionals="17" methods="27" coveredmethods="25" elements="116" coveredelements="102" complexity="0" loc="67" ncloc="67" packages="7" files="10" classes="10"/>
+    <package name="components">
+      <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
+      <file name="RouterWrapper.tsx" path="D:\react\nt-todolist\src\components\RouterWrapper.tsx">
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="3"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="12" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="16" count="0" type="stmt"/>
         <line num="23" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="src.components.FormFields">
+    <package name="components.FormFields">
       <metrics statements="22" coveredstatements="22" conditionals="12" coveredconditionals="9" methods="10" coveredmethods="10"/>
       <file name="CheckboxGroupField.tsx" path="D:\react\nt-todolist\src\components\FormFields\CheckboxGroupField.tsx">
         <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="5" methods="5" coveredmethods="5"/>
@@ -49,7 +50,7 @@
         <line num="21" count="17" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.login">
+    <package name="features.login">
       <metrics statements="8" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="index.tsx" path="D:\react\nt-todolist\src\features\login\index.tsx">
         <metrics statements="8" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -63,7 +64,7 @@
         <line num="16" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.notFound">
+    <package name="features.notFound">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="index.tsx" path="D:\react\nt-todolist\src\features\notFound\index.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -71,7 +72,7 @@
         <line num="2" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.profile">
+    <package name="features.profile">
       <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
       <file name="index.tsx" path="D:\react\nt-todolist\src\features\profile\index.tsx">
         <metrics statements="12" coveredstatements="12" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
@@ -89,7 +90,7 @@
         <line num="143" count="16" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.screen1">
+    <package name="features.screen1">
       <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="index.tsx" path="D:\react\nt-todolist\src\features\screen1\index.tsx">
         <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
@@ -104,7 +105,7 @@
         <line num="19" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.screen2">
+    <package name="features.screen2">
       <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="index.tsx" path="D:\react\nt-todolist\src\features\screen2\index.tsx">
         <metrics statements="9" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>

@@ -1,16 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
-import App from './App';
+import RouterWrapper from './RouterWrapper';
 
 describe('Test Router', () => {
 	beforeEach(() => {
-		const history = createMemoryHistory();
-		render(
-			<Router history={history}>
-				<App />
-			</Router>
-		);
+		render(<RouterWrapper />);
 	});
 
 	test('should navigate to other page when click the navigate', async () => {
