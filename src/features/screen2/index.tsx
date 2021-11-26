@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import todoApi from '../screen1/todoApi';
+import LanguageSwitcher from 'src/components/LanguageSwitcher';
 import { Todo } from '../screen1/todo';
+import todoApi from '../screen1/todoApi';
 
 const Screen2 = () => {
+	const { t } = useTranslation();
+
 	const [todo, setTodo] = useState<Todo>();
 
 	useEffect(() => {
@@ -18,7 +22,8 @@ const Screen2 = () => {
 	}, []);
 	return (
 		<div>
-			<h1>This is screen 2</h1>
+			<h1>{t('screen2.title')}</h1>
+
 			<div>Name: {todo?.title}</div>
 			<Link data-testid="screen2-btn" to="/">
 				Back to screen 1

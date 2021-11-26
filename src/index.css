@@ -50,6 +50,17 @@ h1 {
 	min-height: 100vh;
 }
 
+.language-switcher,
+.site-header {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.site-header {
+	justify-content: space-between;
+}
+
 main {
 	width: min(600px, 100%);
 	padding: 15px;
