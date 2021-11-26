@@ -45,7 +45,6 @@ describe('RadioGroup', () => {
 		await act(async () => {
 			fireEvent.click(screen.getAllByRole('radio')[1]);
 		});
-		console.log('watchResult', watchResult);
 		expect(watchResult).toEqual([
 			{ fieldName: '' },
 			{ fieldName: 'Value 1' },

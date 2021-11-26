@@ -1,17 +1,32 @@
 import { render, screen } from '@testing-library/react';
+import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
-import Screen2 from '.';
+import i18n from 'src/core/i18n/i18n';
+import Screen1 from '.';
 
-describe('Test screen 2', () => {
+describe('Test screen 1', () => {
 	beforeEach(() => {
+		jest.mock('react-i18next', () => ({
+			// this mock makes sure any components using the translate hook can use it without a warning being shown
+			useTranslation: () => {
+				return {
+					t: (str: any) => str,
+					i18n: {
+						changeLanguage: () => new Promise(() => {}),
+					},
+				};
+			},
+		}));
 		render(
-			<BrowserRouter>
-				<Screen2 />
-			</BrowserRouter>
+			<I18nextProvider i18n={i18n}>
+				<BrowserRouter>
+					<Screen1 />
+				</BrowserRouter>
+			</I18nextProvider>
 		);
 	});
 	test('should display the title of todo fetched from API', async () => {
 		expect(await screen.findByText(/Task Two/)).toBeInTheDocument();
-		expect(await screen.findByText('This is screen 2')).toBeInTheDocument();
+		expect(await screen.findByText(/This is screen 2/)).toBeInTheDocument();
 	});
 });
