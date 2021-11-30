@@ -5,7 +5,8 @@ import AuthenticationService from 'src/core/authenticationService';
 const PrivateRoute = (props: RouteProps) => {
 	const authentication = AuthenticationService.getInstance();
 
-	if (!authentication.token) {
+	const token = authentication.getToken().token
+	if (!token) {
 		return <Redirect to="/login" />;
 	}
 
