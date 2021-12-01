@@ -5,6 +5,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import CheckboxGroupField from 'src/components/FormFields/CheckboxGroupField';
 import InputField from 'src/components/FormFields/InputField';
+import LogoutButton from 'src/components/LogoutButton';
 import TextAreaField from 'src/components/FormFields/TextareaField';
 import * as yup from 'yup';
 
@@ -60,12 +61,13 @@ const ProfileForm = () => {
 		defaultValues,
 		resolver: yupResolver(schema),
 	});
-	const handleFormSubmit: SubmitHandler<ProfileFormInputs> = (formsValue) => {
+	const handleFormSubmit: SubmitHandler<ProfileFormInputs> = formsValue => {
 		setData({ ...data, ...formsValue });
 	};
 	return (
 		<Container>
 			<h1>Profile Form</h1>
+			<LogoutButton />
 
 			<form onSubmit={handleSubmit(handleFormSubmit)}>
 				<Row>

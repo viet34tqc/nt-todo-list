@@ -12,7 +12,6 @@ const authApi = {
 	},
 	// `params` is used for passing isExpiredToken. It is used for demo purpose only.
 	getUserList(params?: {}): Promise<any> {
-		console.log('params', params)
 		const url = '/user/listUser';
 		return axiosAuthClient.get(url, { params });
 	},

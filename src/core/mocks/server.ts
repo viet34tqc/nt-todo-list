@@ -3,7 +3,8 @@
  */
 
 import { setupServer } from 'msw/node';
-import { todoHandlers } from './handlers/todo';
+import { loginHandlers } from 'src/features/login/handlers/login';
+import { todoHandlers } from '../../features/screen1/handlers/todo';
 
 // Setup requests interception using the given handlers.
-export const server = setupServer(...todoHandlers);
+export const server = setupServer(...todoHandlers, ...loginHandlers);

@@ -18,7 +18,15 @@ class AuthenticationService {
 		}
 	}
 
-	public static getInstance(): any {
+	public logout() {
+		this.token = '';
+		this.refreshToken = '';
+
+		localStorage.removeItem('token');
+		localStorage.removeItem('refreshToken');
+	}
+
+	public static getInstance(): AuthenticationService {
 		if (!AuthenticationService.instance) {
 			AuthenticationService.instance = new AuthenticationService();
 		}

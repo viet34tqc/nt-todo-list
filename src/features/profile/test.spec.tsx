@@ -7,7 +7,7 @@ describe('ProfileForm', () => {
 	});
 
 	test('should display required error when the value is empty', async () => {
-		fireEvent.click(screen.getByRole('button'));
+		fireEvent.click(screen.getByRole('button', { name: /Save Change/ }));
 		expect(
 			await screen.findByText('Please enter your email')
 		).toBeInTheDocument();
@@ -19,7 +19,7 @@ describe('ProfileForm', () => {
 		fireEvent.input(screen.getByPlaceholderText('user@example.com'), {
 			target: { value: /email/ },
 		});
-		fireEvent.click(screen.getByRole('button'));
+		fireEvent.click(screen.getByRole('button', {name: /Save Change/}));
 		expect(
 			await screen.findByText('Please enter valid email')
 		).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('ProfileForm', () => {
 			target: { value: 'abc@gmail.com' },
 		});
 		fireEvent.click(screen.getByLabelText('Blog posts'));
-		fireEvent.click(screen.getByRole('button'));
+		fireEvent.click(screen.getByRole('button', { name: /Save Change/ }));
 		await waitFor(() => {
 			expect(
 				screen.queryByText('Please enter valid email')

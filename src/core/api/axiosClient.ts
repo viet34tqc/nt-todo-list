@@ -61,7 +61,7 @@ axiosAuthClient.interceptors.response.use(
 			originalRequest._retry = true;
 
 			const tokens = await authApi.getRefreshToken({
-				refreshToken: authentication.getToken().refreshToken,
+				refreshToken: authentication.getToken().refreshToken as string,
 				email: 'user002@gmail.com',
 			});
 			authentication.authenticated(tokens);

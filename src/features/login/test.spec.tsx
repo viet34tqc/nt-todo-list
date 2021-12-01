@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import Login from '.';
@@ -13,16 +13,31 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Test Login button', () => {
-	test('should display login button', async () => {
-		const history = createMemoryHistory();
+	const history = createMemoryHistory();
+
+	beforeEach(() => {
 		render(
 			<Router history={history}>
 				<Login />
 			</Router>
 		);
-		const button = screen.getByRole('button', { name: /Login/ });
+	});
+	test('should display login to profile button', async () => {
+		const button = screen.getByRole('button', {
+			name: /Login to profile page/,
+		});
 		expect(button).toBeInTheDocument();
 		fireEvent.click(button);
+		await waitFor(() => expect(button).not.toBeDisabled());
 		expect(history.location.pathname).toBe('/profile');
+	});
+	test('should display login to user list page', async () => {
+		const button = screen.getByRole('button', {
+			name: /Login to fetch user page/,
+		});
+		expect(button).toBeInTheDocument();
+		fireEvent.click(button);
+		await waitFor(() => expect(button).not.toBeDisabled());
+		expect(history.location.pathname).toBe('/userList');
 	});
 });

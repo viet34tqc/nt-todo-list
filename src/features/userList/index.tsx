@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import LogoutButton from 'src/components/LogoutButton';
 import authApi from '../login/authApi';
 
 const UserList = () => {
@@ -42,6 +43,9 @@ const UserList = () => {
 
 	return (
 		<>
+			<h1>User List</h1>
+			<LogoutButton />
+
 			<div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
 				<button disabled={isLoading} onClick={handleClick}>
 					Fetch user list
@@ -53,7 +57,7 @@ const UserList = () => {
 			<div>
 				{users.length > 0 &&
 					users.map((user: any) => (
-						<div>
+						<div key={user.uid}>
 							{user.firstname}&nbsp;
 							{user.lastname}
 						</div>

@@ -1,4 +1,4 @@
-import { getTodoError } from 'src/core/mocks/handlers/todo';
+import { getTodoError } from 'src/features/screen1/handlers/todo';
 import { server } from 'src/core/mocks/server';
 import { Todo } from 'src/features/screen1/todo';
 import { axiosTodoClient } from './axiosClient';
