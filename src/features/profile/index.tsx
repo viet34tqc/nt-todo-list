@@ -3,11 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import CheckboxGroupField from 'src/components/FormFields/CheckboxGroupField';
 import InputField from 'src/components/FormFields/InputField';
-import LogoutButton from 'src/components/LogoutButton';
 import TextAreaField from 'src/components/FormFields/TextareaField';
-import * as yup from 'yup';
+import LogoutButton from 'src/components/LogoutButton';
+import { schema } from './validationSchema';
 
 interface ProfileFormInputs {
 	fullname: string;
@@ -39,20 +40,8 @@ function transformProfileValue(key: string, value: string | string[]) {
 }
 
 const ProfileForm = () => {
+	const { t } = useTranslation();
 	const [data, setData] = useState<ProfileFormInputs>(defaultValues);
-	const schema = yup.object({
-		fullname: yup.string(),
-		username: yup.string(),
-		email: yup
-			.string()
-			.email('Please enter valid email')
-			.required('Please enter your email'),
-		about: yup.string(),
-		password: yup.string(),
-		newPassword: yup.string(),
-		newPassword2: yup.string(),
-		emailNoti: yup.array().min(1, 'Please select at least one'),
-	});
 	const {
 		handleSubmit,
 		control,
@@ -66,7 +55,7 @@ const ProfileForm = () => {
 	};
 	return (
 		<Container>
-			<h1>Profile Form</h1>
+			<h1>{t('profile.title')}</h1>
 			<LogoutButton />
 
 			<form onSubmit={handleSubmit(handleFormSubmit)}>
